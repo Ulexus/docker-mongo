@@ -1,0 +1,22 @@
+[Unit]
+Description=MongoDB Daemon
+After=docker.service
+
+[Service]
+EnvironmentFile=/etc/environment
+Environment=REPLSET=cycore
+ExecStartPre=-/usr/bin/docker pull ulexus/mongo
+ExecStartPre=-/usr/bin/docker pull ibuildthecloud/systemd-docker
+ExecStartPre=-/usr/bin/docker run --rm -v /opt/bin:/opt/bin ibuildthecloud/systemd-docker
+ExecStart=/opt/bin/systemd-docker --env run --rm -p 27017:27017 --name %p ulexus/mongo
+LimitNOFILE=64000
+Restart=always
+RestartSec=10s
+Type=notify
+NotifyAccess=all
+TimeoutStartSec=120
+TimeoutStopSec=15
+
+[X-Fleet]
+Global=true
+Conflicts=mongod*
