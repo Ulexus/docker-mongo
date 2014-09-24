@@ -1,7 +1,7 @@
 mongo
 =====
 
-MongoDB dockerfile
+MongoDB (v2.6.4) dockerfile
 
 For the simplest case, a standalone MongoDB server, you should only need to run the docker image.  It will automatically create a `VOLUME` in which to store the database.
 
